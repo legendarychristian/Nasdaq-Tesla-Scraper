@@ -49,6 +49,20 @@ class TeslaspiderSpider(scrapy.Spider):
         tesla_url = response.xpath(xpath_tesla_url).get()
         next_page = "https://www.nasdaq.com/market-activity/stocks/tsla/" + tesla_url
         
+        yield response.follow(next_page, meta = {'dont_redirect': True,'handle_httpstatus_list': [302]}, callback = self.get_tesla_data)
+        
+    def get_tesla_data(self, response):
+        
+        xpath_tesla_stock_table = "//div[@class='latest-real-time-trades__container']//h1//text()"
+        tesla_text = response.xpath(xpath_tesla_stock_table).get()
+        
+        yield {
+            'tesla_text' : tesla_text
+        }
+        
+
+
+
         
 
     

@@ -13,3 +13,4 @@ class TeslascraperItem(scrapy.Item):
 class StockItem(scrapy.Item):
     Symbol = scrapy.Field()
     Company_Name = scrapy.Field()
+    
